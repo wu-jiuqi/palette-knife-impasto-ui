@@ -1,0 +1,4 @@
+interface:
+  display_name: "刮刀厚涂油画 UI"
+  short_description: "根据原型图或项目上下文，用 image_gen 生成跨平台刮刀厚涂油画 UI 资产"
+  default_prompt: "使用 $palette-knife-impasto-ui：先读取 UI 工作流与风格桥接规则；有原型图就拆解组件并调用 image_gen，无原型图就先生成整体视觉原型，再生成透明 UI 组件和状态资产。"
