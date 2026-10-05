@@ -1,59 +1,41 @@
 # 刮刀厚涂油画 UI Skill
 
-`palette-knife-impasto-ui` 是一个以 `image_gen` 为主要产出手段的跨平台 UI 视觉资产生成 Skill。它沿用刮刀厚涂油画的厚颜料、方向性刀痕和选择性画布肌理，为游戏或其他交互项目生成面板、按钮、图标、边框、底图和状态资产。
+`palette-knife-impasto-ui` 用 `image_gen` 生成具有厚颜料、方向性刀痕和选择性画布肌理的 UI 视觉资产。它由平台中立的视觉核心和可替换的平台适配器组成：同一套风格身份与资产契约可以交给 H5、Godot 或后续扩展的平台。
 
-它适用于 Godot、Unity、Unreal、HTML/CSS 以及其他运行时。Skill 默认交付平台中立的图像资产和交接说明，不替目标平台生成场景、脚本或完整 UI 代码。
+## 核心能力
 
-## 能做什么
+- 根据线框、截图、Style Frame 或现有 UI 资源建立 inventory 和视觉身份。
+- 没有原型图时先生成整屏 Style Slice，再按优先级和视觉家族生成生产组件。
+- 生成 normal、hover、pressed、focus、disabled、selected、error 等需要的状态，并记录每个状态由图片还是运行时层实现。
+- 输出透明前景、面板、边框、底图、装饰、图标和状态资产；不透明背景或纹理会在契约中明确登记。
+- 为每项资产提供测得尺寸、颜色模式、Alpha、文字安全区、九切/平铺/裁切和证据。
+- 默认交付平台中立的资产包；用户明确要求接入时，按 H5 或 Godot 适配器做运行时验收。
 
-- 根据线框、截图、Style Frame 或现有 UI 原型拆解组件。
-- 没有原型图时读取项目上下文，先生成整体视觉原型，再生成组件。
-- 生成 normal、hover、pressed、focus、disabled、selected 等需要的状态。
-- 输出透明 Alpha 组件、面板、边框、装饰、图标和底图。
-- 为每项资产提供尺寸、留白、切片、状态和平台接入说明。
-- 生成后检查材质、可读性、透明边缘和样式一致性，并进行一次定向修订。
-- 对游戏 UI 组件，生成图必须直接承担组件本体；禁止纯色框叠加油画图。搜索栏、下拉栏、Toast、提示框等常见控件需要独立资产和独立形状语法。
+## 交付模式
 
-## 两条工作流
+### `asset-pack`（默认）
 
-### 有原型图
+交付 Style Slice、资产文件、组件/状态 manifest、适配说明和共享 QA 结果，不创建网页或引擎项目。静态切片可以检查层级、材质、可读性和缩放假设，但必须注明运行时未验证。
 
-Skill 会先检查原型图，判断它承担的是布局、配色、风格、主体还是编辑参考，然后拆分为：
+### `runtime-integration`
 
-1. 屏幕结构和安全区。
-2. 背景、面板和装饰材质。
-3. 按钮、图标、进度条、弹窗等组件。
-4. 组件状态和必须保持的比例关系。
-5. 正式文字和动态数据的占位区域。
+用户说“接入、实现、可运行、做 H5 页面、做 Godot 场景”等请求时启用。H5 使用 DOM 适配器；Godot 使用 Control/Container/Theme 等 Godot 适配器。必须在实际运行时检查原生文字、布局、输入、焦点、状态、窗口/视口和加载反馈。
 
-之后按逻辑资产分别调用 `image_gen`。原型中的文字默认只作为位置和长度提示，不直接烘焙进生产图片。
+Godot Web 导出仍走 Godot 适配器，再追加浏览器导出检查；它不是 H5 DOM 实现。
 
-### 没有原型图
+## 共享流程
 
-Skill 会先读取项目说明、场景、截图、已有资源、目标平台和分辨率要求，输出简短的 UI 判断，包括信息层级、主要操作、情绪、材质、配色和需要避免的网页化元素。
+`项目与 inventory → 视觉身份 → Style Slice → P0/P1/P2 资产 → 回组 → 共享 QA + 平台 QA → 证据交付`
 
-接着生成一张整体视觉原型（Style Frame），并附一份文字版布局契约。Style Frame 用于沟通气氛、层级和组件关系，不作为像素级布局或正式文案的唯一依据。最后再以它为参考逐项生成生产用组件。
+整屏任务使用 [`references/game-ui-vertical-slice.md`](references/game-ui-vertical-slice.md)。组件字段、状态和切片策略见 [`references/component-contract.md`](references/component-contract.md)。风格桥接见 [`references/style-bridge.md`](references/style-bridge.md)。
 
-## 刮刀油画 UI 原则
+## 平台适配器
 
-- 厚颜料和刀痕主要用于面板、边框、底图和装饰。
-- 文字、数字和动态数据区域保持低细节、高对比。
-- 小图标和窄按钮降低纹理密度，优先保证轮廓和识别度。
-- 默认不生成文字、Logo、签名或水印。
-- 透明组件必须是真实 Alpha，不使用绿幕或棋盘格假透明。
-- 同一批次资产使用统一的媒介、材质、色彩关系和笔触方向作为风格锚点。
+- [`references/platforms/h5.md`](references/platforms/h5.md)：DOM 语义、ARIA、焦点、safe-area、`dvh/svh`、触控、加载和响应式检查。
+- [`references/platforms/godot.md`](references/platforms/godot.md)：预置 `Control/Container` 场景、`Theme/StyleBoxTexture`、`TextureRect/NinePatchRect`、键盘/手柄/触控、视口安全区、导入和真实运行检查。
+- [`references/platforms/adapter-template.md`](references/platforms/adapter-template.md)：新增平台的协议、manifest 和证据模板。
 
-## 跨平台边界
-
-默认输出：
-
-- PNG 等平台中立的图像资产。
-- 组件和状态清单。
-- 建议画布比例、尺寸、倍率、Alpha 和边缘留白。
-- 九切、平铺、裁切和安全区说明。
-- 正式文字、字体、动态数据、交互逻辑、本地化和无障碍的接入提示。
-
-Skill 不会默认生成 Godot、Unity、Unreal 或 HTML/CSS 代码。raster 资产本身也不能保证响应式布局、字体正确性、键盘焦点或无障碍行为，这些由目标运行时负责。
+平台适配器只补布局、输入、导入、性能和验证方法，不重写共享刮刀厚涂视觉核心。没有明确实现请求时，Skill 不生成 Godot、Unity、Unreal 或 HTML/CSS 代码。
 
 ## 使用方式
 
@@ -63,9 +45,7 @@ Skill 不会默认生成 Godot、Unity、Unreal 或 HTML/CSS 代码。raster 资
 使用 $palette-knife-impasto-ui，根据这张战斗 HUD 原型图生成面板、按钮和图标组件。
 ```
 
-没有原型图时可以提供项目类型、世界观、目标平台、画布比例、已有截图和需要的界面；Skill 会执行 fallback 流程。
-
-如果需要严格的文字排版、响应式布局或引擎接入，应在生成视觉资产后，再交给对应的平台实现流程。
+如果需要 H5 实现，请说明运行时版本、屏幕范围和输入方式；如果需要 Godot 实现，请说明 Godot 版本、导出目标、输入设备和已有场景约束。
 
 ## 本地安装
 
@@ -88,13 +68,16 @@ Copy-Item -Recurse .\palette-knife-impasto-ui "$env:USERPROFILE\.codex\skills\"
 
 ```text
 palette-knife-impasto-ui/
-├── SKILL.md                         # 入口、路由和核心边界
+├── SKILL.md                         # 共享入口、模式、路由和边界
 ├── agents/openai.yaml               # Skill 展示名称和默认提示
 ├── references/
 │   ├── style-bridge.md              # 刮刀油画到 UI 的风格桥接
-│   ├── ui-workflow.md               # 有原型/无原型工作流
+│   ├── ui-workflow.md               # inventory、切片、优先级和回组
 │   ├── component-contract.md        # 组件、状态、Alpha 和切片契约
-│   └── cross-platform-qa.md         # 跨平台交付与质检
+│   ├── game-ui-vertical-slice.md    # 静态/运行时切片验收
+│   ├── cross-platform-qa.md         # 共享交付与质检
+│   └── platforms/                   # H5、Godot 和扩展适配器
+├── demo/                            # H5 交互验收用的示例切片
 └── evals/scenarios.md               # 行为验收场景
 ```
 
@@ -108,15 +91,15 @@ python -X utf8 `
   .
 ```
 
-验收场景位于 [`evals/scenarios.md`](evals/scenarios.md)，覆盖有原型、无原型、跨平台、可读性和失败修订边界。
+行为场景位于 [`evals/scenarios.md`](evals/scenarios.md)。示例页可从仓库根目录运行 `python -m http.server 8790` 后访问 `http://localhost:8790/demo/`。
 
 ## 已知限制
 
-- image_gen 可能生成错误文字，因此正式文案默认由运行时叠加。
-- 多次生成之间的几何和身份一致性需要使用风格锚点并进行实际检查。
+- `image_gen` 可能生成错误文字，因此正式文案默认由运行时叠加。
+- 多次生成之间的几何和身份一致性需要 style anchor、视觉家族和实际回组检查。
 - 生成图片无法替代响应式布局、字体系统、本地化、无障碍和交互逻辑。
-- 九切、平铺、严格色值、像素级几何和透明通道只有在实际核验后才能确认。
-- 生成失败时最多进行一次定向修订，不能无限重试。
+- 九切、平铺、严格色值、像素级几何、透明通道和运行时性能只有在实际核验后才能确认。
+- 生成失败时最多进行一次定向修订；低优先级资产可以暂缓，但必须记录问题。
 
 ## 相关项目
 
