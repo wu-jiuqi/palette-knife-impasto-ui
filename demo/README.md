@@ -37,3 +37,23 @@ python -m http.server 4173
 - 生成图直接承担搜索栏、下拉栏、提示框和 Toast 的外形
 - 文字改为根据深色油彩安全区使用浅色、阴影和强调色
 - 下拉项、提示内容和状态条不再使用纯色矩形包裹
+
+## v7 完整组件图谱
+
+页面下滑后可验收一张完整的组件 atlas，覆盖：
+
+- 操作：主/次/危险/禁用按钮、Tabs、分页
+- 输入：搜索、文本框、错误、禁用、下拉
+- 选择：Checkbox、Radio、Switch、Slider
+- 信息展示：Progress、Badge、Card、List
+- 反馈：Toast、Tooltip、Dialog/Modal
+
+每个演示组件都使用已有的油彩资产作为本体；hover 只增加透明刀痕高光、滤镜或轻微位移，pressed/selected/focus-visible 作为触控等价态，disabled 保留材质轮廓。组件清单、状态策略和 QA 证据见 [`component-manifest.json`](./component-manifest.json)。
+
+## H5 验收步骤
+
+1. 桌面端把鼠标移到按钮、Tab、输入框、选择项、徽章和列表项，确认材质不会变成纯色块。
+2. 点击“全部 / 操作 / 输入 / 反馈”筛选组件族，确认语义状态和视觉状态同步。
+3. 用键盘 Tab、Enter、Escape 验证焦点、弹窗、下拉和关闭逻辑。
+4. 缩窄到手机宽度，确认组件换行、触控命中区和 `pressed/selected/focus-visible` 仍可识别。
+5. 打开系统 reduced motion，确认粒子和过渡关闭后信息仍完整。

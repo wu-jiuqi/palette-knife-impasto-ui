@@ -25,3 +25,13 @@ dropMenu.querySelectorAll('button').forEach(opt=>opt.addEventListener('click',()
 infoBtn.addEventListener('click',()=>{modalTrigger=infoBtn;modal.classList.add('show');modal.setAttribute('aria-hidden','false');requestAnimationFrame(()=>closeTip.focus())});closeTip.addEventListener('click',closeModal);modal.addEventListener('click',e=>{if(e.target===modal)closeModal()});
 document.addEventListener('click',e=>{if(!e.target.closest('.select-wrap'))closeDropdown()});
 document.querySelector('#search').addEventListener('input',e=>{if(e.target.value){toast.textContent='正在刮开：'+e.target.value;toast.classList.add('show');clearTimeout(timer);timer=setTimeout(()=>toast.classList.remove('show'),1200)}});
+
+// Full component atlas: filters and state feedback stay semantic while the painted surface remains intact.
+const atlasTabs=document.querySelectorAll('.atlas-tab');
+const atlasCards=document.querySelectorAll('.showcase-card');
+atlasTabs.forEach(tab=>tab.addEventListener('click',()=>{atlasTabs.forEach(item=>{item.classList.toggle('active',item===tab);item.setAttribute('aria-current',item===tab?'page':'false')});const family=tab.dataset.tab;atlasCards.forEach(card=>{card.hidden=family!=='all'&&card.dataset.family!==family})}));
+document.querySelectorAll('.mini-tab').forEach(tab=>tab.addEventListener('click',()=>{const parent=tab.closest('.mini-tabs');parent.querySelectorAll('.mini-tab').forEach(item=>{const active=item===tab;item.classList.toggle('active',active);item.setAttribute('aria-selected',String(active))})}));
+const wetness=document.querySelector('#wetness'),rangeValue=document.querySelector('#rangeValue');
+wetness?.addEventListener('input',()=>{rangeValue.textContent=wetness.value+'%';wetness.closest('.showcase-card')?.querySelector('.progress-paint')?.setAttribute('aria-valuenow',wetness.value)});
+document.querySelectorAll('[data-demo-toast]').forEach(control=>control.addEventListener('click',()=>{toast.textContent=control.dataset.demoToast;toast.classList.add('show');clearTimeout(timer);timer=setTimeout(()=>toast.classList.remove('show'),1800)}));
+document.querySelectorAll('.paint-list-item').forEach(item=>item.addEventListener('click',()=>{item.parentElement.querySelectorAll('.paint-list-item').forEach(other=>other.classList.toggle('selected',other===item));toast.textContent='已切换：'+item.querySelector('strong').textContent;toast.classList.add('show');clearTimeout(timer);timer=setTimeout(()=>toast.classList.remove('show'),1400)}));
