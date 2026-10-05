@@ -10,7 +10,9 @@
 python -m http.server 4173
 ```
 
-然后访问 http://localhost:4173/demo/
+如果你在仓库根目录运行服务，请访问 http://localhost:4173/demo/；如果你已经进入 `demo` 目录运行，请访问 http://localhost:4173/。
+
+也可以直接双击 `index.html` 预览静态画面；需要验证键盘、下拉和模态框交互时，建议使用本地 HTTP 服务。
 
 ## 本版验证点
 
