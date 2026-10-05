@@ -4,13 +4,17 @@
 
 ```text
 component_id:
-family:                         # 同一几何/材质家族，可共享模板
+theme_id:                       # 对应本次确定的主题与 style anchor
+family:                         # 本次生成的同一几何/材质家族，可共享模板
 purpose:
 priority: P0 | P1 | P2
 semantic_role: button | input | panel | icon | decorative | ...
 required_states: normal, hover, pressed, focus, disabled, selected, error
 state_rendering_strategy: independent_image | shared_plus_runtime | template | native_layer
 source_master:
+asset_origin: generated_this_task | shared_this_task | user_provided | authorized_reuse
+generation_evidence:            # 本次 image_gen 调用/输出；共享项指向本次母版记录
+reuse_scope_and_source:         # 用户指定复用时：指令依据、来源、范围与主题适配结果
 runtime_variants:
 actual_dimensions:              # 生成后实测像素
 file_bytes:
@@ -31,7 +35,8 @@ unresolved_issues:
 ## 材质本体与复用
 
 - 生成图必须承担主要组件本体的外形、边缘和颜料材质。运行时可以叠加文字、图标、动态数据、焦点环、错误/加载反馈和低细节降级层，但不能用扁平纯色框替代主要厚涂本体。
-- 同一视觉家族可以共享模板、边缘或九切策略；组件语义不同或最小尺寸/文字区不同，就要重新验证，不能只靠改颜色或任意拉伸按钮图。
+- 默认共享限于本次主题下新生成的视觉家族，可共享模板、边缘或九切策略；跨任务或跨项目的成品素材仅在用户明确指定时复用，并登记来源与主题适配结果。代码复用不代表视觉资产可直接沿用。
+- 组件语义不同或最小尺寸/文字区不同，就要重新验证，不能只靠改颜色、改名称或任意拉伸按钮图。主图生成记录不能代替按钮、面板、弹窗等组件的生成记录。
 - 搜索栏、下拉栏、Toast、提示框、标签和进度条默认需要不同的形状语法；只有在契约中说明家族关系和裁切限制时才可复用。
 - 缩略图中只剩平面色块、油画体积消失、刀痕方向与风格锚点冲突时，材质检查失败。
 

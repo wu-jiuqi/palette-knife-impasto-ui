@@ -4,12 +4,13 @@
 
 ## 核心能力
 
-- 根据线框、截图、Style Frame 或现有 UI 资源建立 inventory 和视觉身份。
-- 没有原型图时先生成整屏 Style Slice，再按优先级和视觉家族生成生产组件。
+- 每次先确定主题，再按内容与交互需求列出 UI 组件清单；已有资源先作参考，不默认沿用上一项目的视觉组件。
+- 没有原型图时依据主题与清单生成整屏 Style Slice，再调用 `image_gen` 按优先级生成本次配套组件；同轮同家族可共享，已有成品仅在用户明确指定时复用。
 - 生成 normal、hover、pressed、focus、disabled、selected、error 等需要的状态，并记录每个状态由图片还是运行时层实现。
 - 输出透明前景、面板、边框、底图、装饰、图标和状态资产；不透明背景或纹理会在契约中明确登记。
 - 为每项资产提供测得尺寸、颜色模式、Alpha、文字安全区、九切/平铺/裁切和证据。
 - 默认交付平台中立的资产包；用户明确要求接入时，按 H5 或 Godot 适配器做运行时验收。
+- 生成后拼装并检查静态界面与主要交互，最后补充主题化补间动画、粒子等效果；资产包仅交付效果方案与素材。
 
 ## 交付模式
 
@@ -25,7 +26,9 @@ Godot Web 导出仍走 Godot 适配器，再追加浏览器导出检查；它不
 
 ## 共享流程
 
-`项目与 inventory → 视觉身份 → Style Slice → P0/P1/P2 资产 → 回组 → 共享 QA + 平台 QA → 证据交付`
+`确定主题 → UI 组件清单 → Style Slice 定向 → image_gen 生成配套组件 → 拼装与检查 → 补间动画/粒子等效果 → 共享 QA + 平台 QA → 证据交付`
+
+生成一张新主图后沿用旧项目的按钮、面板和卡片，不算完成本流程。交付必须区分本次生成、同轮共享、用户指定复用和暂缓项；允许复用实现代码，不借此跳过视觉生产。
 
 整屏任务使用 [`references/game-ui-vertical-slice.md`](references/game-ui-vertical-slice.md)。组件字段、状态和切片策略见 [`references/component-contract.md`](references/component-contract.md)。风格桥接见 [`references/style-bridge.md`](references/style-bridge.md)。
 
