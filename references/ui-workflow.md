@@ -52,7 +52,7 @@
 - Godot：预置 Control/Container 场景、Theme/StyleBoxTexture、TextureRect/NinePatchRect、键盘/手柄/触控、视口安全区、纹理导入和真实运行。
 - 其他平台：复制 `adapter-template.md`，只补平台差异和证据要求。
 
-先验证主题一致性、文字、比例、输入与状态；P0 不通过时回到身份/组件阶段，不进入效果润色。
+`asset-pack` 先验证主题一致性、文字占位、比例与状态契约，并标明输入、平台行为和实际反馈未验证；`runtime-integration` 再验证输入、状态和实际反馈。P0 不通过时回到身份/组件阶段，不进入效果润色。
 
 ## 8. 拼装通过后补充补间动画、粒子与其他效果
 
