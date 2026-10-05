@@ -1,4 +1,4 @@
 interface:
   display_name: "刮刀厚涂油画 UI"
   short_description: "根据原型图或项目上下文，用 image_gen 生成跨平台刮刀厚涂油画 UI 资产"
-  default_prompt: "使用 $palette-knife-impasto-ui：确定交付模式后，先定主题、列 UI 组件清单，再做 Style Slice 并调用 image_gen 生成本次配套组件，拼装检查后补充补间动画与粒子等效果，最后按交付模式验收；资产包只交付效果方案，不默认复用旧项目视觉资产。"
+  default_prompt: "使用 $palette-knife-impasto-ui：确定交付模式后，先定主题、列 UI 组件清单，再做 Style Slice 并调用 image_gen 生成本次配套组件，拼装检查后补充补间动画与粒子等效果，最后按交付模式验收；asset-pack 交付静态回组、组件资产、manifest、效果方案与所需素材，不创建运行时工程并标注未验证；不默认复用旧项目视觉资产。"
