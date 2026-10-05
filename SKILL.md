@@ -30,11 +30,11 @@ existing_constraints:
 整屏或多组件任务按下面顺序执行；单个小资产可以缩小范围，但仍要留下契约和状态假设：
 
 1. **先确定主题**：读取项目上下文、原型和交付范围，写出本次主题、内容定位、情绪、配色、材质、形状与装饰语法，固定 style anchor。已有资源先标为布局、色卡、风格、主体参考或编辑目标，不因本地有旧项目就沿用其主题。用户让你自定主题时直接决定并说明，无需额外等待确认。详见 `references/style-bridge.md`。
-2. **再列 UI 组件清单**：从页面内容和操作路径确定需要哪些组件；逐项列出用途、P0/P1/P2、视觉家族、所需状态、比例、文字安全区、透明要求，以及图片与运行时层的分工。按实际需要覆盖背景、主视觉、导航、按钮、面板、卡片、输入控件、弹窗、提示和装饰，不能用已有素材反推页面需求。
+2. **再列 UI 组件清单**：从页面内容和操作路径确定需要哪些组件；逐项列出用途、P0/P1/P2、视觉家族、所需状态、比例、文字安全区、透明要求，以及图片与运行时层的分工。按实际需要覆盖背景、主视觉、导航、按钮、面板、卡片、输入控件、选择控件、数据展示、弹窗、提示、结构和装饰，不能用已有素材反推页面需求。执行前读取 `references/component-inventory.md`，没有需求的组件也要写明 N/A 原因。
 3. **Style Slice 定向**：组件清单建立后，有原型时按原型重建结构；无原型时用 `image_gen` 生成符合本次主题的整屏视觉方向。按 `references/game-ui-vertical-slice.md` 检查构图，并细化组件契约；整屏图或主视觉图不能代替组件生产。
 4. **按主题生成配套组件**：必须实际调用 `image_gen`，依据清单和同一 style anchor 生成本次制作所需的组件本体。P0 独立生成或明确状态变体；本次已生成的同一几何家族可共享模板、切片与运行时状态层，不要求每个实例都单独生成。保留提示词、调用/输出证据和资产来源，不能只新生成主图、其余沿用上次组件后声称完成了配套生成。
 5. **生成后拼装与检查**：把本次配套资产与正式文字、动态数据和交互状态回组。`asset-pack` 做静态回组，检查主题一致性、比例、层级、文字安全区、透明边缘和状态契约并标明运行时未验证；`runtime-integration` 接入目标平台后再检查主要交互、输入与实际反馈，然后进入动效阶段。
-6. **最后补充动效与粒子**：拼装检查通过后，补充贴合主题的入场、悬停、按下、转场补间和环境粒子等效果；效果不得遮挡文字或抢占输入，保留减少动效/关闭粒子的降级。`asset-pack` 只交付动效方案及所需资产，标明运行时未实现；不适用的效果说明原因，不用增加特效掩盖资产缺失。
+6. **最后补充动效与粒子**：拼装检查通过后，补充贴合主题的入场、悬停、按下、转场补间和环境粒子等效果；效果不得遮挡文字或抢占输入，保留减少动效/关闭粒子的降级。hover 默认采用同一油彩本体上的局部高光、刀痕或轻微位移，严禁用纯色块替换材质；触控设备提供 pressed、selected 或 focus-visible 等价反馈。`asset-pack` 只交付动效方案及所需资产，标明运行时未实现；不适用的效果说明原因，不用增加特效掩盖资产缺失。
 7. **共享 QA + 平台 QA**：按 `references/cross-platform-qa.md` 和目标适配器验收。`asset-pack` 验收静态拼装、效果方案和降级说明并标注运行时未验证；`runtime-integration` 还要验收动效开启/降级、输入与窗口/视口。交付时区分“通过、部分通过、未验证”和证据。
 
 任何 P0 视觉身份失败都回退到身份/切片阶段；`runtime-integration` 中的 P0 主要交互失败也必须回退。不要用增加纹理或数量掩盖方向错误。P1/P2 失败可以暂缓，但必须记录在 `unresolved_issues`。
@@ -57,9 +57,10 @@ existing_constraints:
 1. `references/style-bridge.md`：媒介、笔触、材质、颜色、细节密度和可读性。
 2. `references/ui-workflow.md`：有/无原型、inventory、Style Slice、优先级和回组流程。
 3. `references/component-contract.md`：组件字段、状态策略、Alpha、文字安全区、九切/平铺和证据。
-4. `references/game-ui-vertical-slice.md`：静态切片与运行时切片的验收门槛。
-5. `references/cross-platform-qa.md`：共享质量检查和报告格式。
-6. `runtime: h5-dom` 时读取 `references/platforms/h5.md`；`runtime: godot` 时读取 `references/platforms/godot.md`；新增平台读取 `references/platforms/adapter-template.md`。
+4. `references/component-inventory.md`：组件覆盖矩阵、完整状态策略、hover 材质规则和文字配对契约。
+5. `references/game-ui-vertical-slice.md`：静态切片与运行时切片的验收门槛。
+6. `references/cross-platform-qa.md`：共享质量检查和报告格式。
+7. `runtime: h5-dom` 时读取 `references/platforms/h5.md`；`runtime: godot` 时读取 `references/platforms/godot.md`；新增平台读取 `references/platforms/adapter-template.md`。
 
 如果宿主已安装 `palette-knife-impasto`，同时遵守它的画风基线和 image_gen 工具规范；本 Skill 只补充 UI 资产和接入规则，不覆盖用户本次明确指定的颜色或媒介要求。
 
@@ -83,4 +84,4 @@ existing_constraints:
 
 ## 交付
 
-交付内容至少包括：主题说明、UI 组件清单、实际生成文件或预览、保存路径、组件/状态 manifest（含本次生成、同轮共享或用户指定复用的来源）、测得尺寸与颜色模式、Alpha 检查、九切/平铺/裁切说明、动效与粒子方案/实现、平台适配器、QA 证据、假设、未解决问题和最终提示词。使用 `asset-pack` 时明确运行时未验证；使用 `runtime-integration` 时记录运行时、版本、输入、屏幕范围和验证截图/日志。未生成或未接入的组件必须逐项说明，不能用新主图代表全套完成。
+交付内容至少包括：主题说明、UI 组件清单、实际生成文件或预览、保存路径、组件/状态 manifest（含本次生成、同轮共享或用户指定复用的来源）、测得尺寸与颜色模式、Alpha 检查、九切/平铺/裁切说明、动效与粒子方案/实现、平台适配器、QA 证据、假设、未解决问题和最终提示词。使用 `asset-pack` 时明确运行时未验证；使用 `runtime-integration` 时记录运行时、版本、输入、屏幕范围和验证截图/日志。未生成或未接入的组件必须逐项说明，不能用新主图代表全套完成。 组件覆盖、hover 材质和文字配对检查以 `references/component-inventory.md` 的清单为准。

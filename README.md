@@ -30,7 +30,7 @@ Godot Web 导出仍走 Godot 适配器，再追加浏览器导出检查；它不
 
 生成一张新主图后沿用旧项目的按钮、面板和卡片，不算完成本流程。交付必须区分本次生成、同轮共享、用户指定复用和暂缓项；允许复用实现代码，不借此跳过视觉生产。
 
-整屏任务使用 [`references/game-ui-vertical-slice.md`](references/game-ui-vertical-slice.md)。组件字段、状态和切片策略见 [`references/component-contract.md`](references/component-contract.md)。风格桥接见 [`references/style-bridge.md`](references/style-bridge.md)。
+整屏任务使用 [`references/game-ui-vertical-slice.md`](references/game-ui-vertical-slice.md)。组件字段、状态和切片策略见 [`references/component-contract.md`](references/component-contract.md)。组件覆盖、hover 材质和文字配对见 [`references/component-inventory.md`](references/component-inventory.md)。风格桥接见 [`references/style-bridge.md`](references/style-bridge.md)。
 
 ## 平台适配器
 
@@ -77,6 +77,7 @@ palette-knife-impasto-ui/
 │   ├── style-bridge.md              # 刮刀油画到 UI 的风格桥接
 │   ├── ui-workflow.md               # inventory、切片、优先级和回组
 │   ├── component-contract.md        # 组件、状态、Alpha 和切片契约
+│   ├── component-inventory.md       # 全量组件覆盖、hover 材质、文字配对
 │   ├── game-ui-vertical-slice.md    # 静态/运行时切片验收
 │   ├── cross-platform-qa.md         # 共享交付与质检
 │   └── platforms/                   # H5、Godot 和扩展适配器
