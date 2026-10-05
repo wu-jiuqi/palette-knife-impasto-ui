@@ -1,0 +1,2 @@
+YªçŠx-®éÜj×¢ëiºÚ+Š§j[h‘éÜ¢éíïŸS¢Ö¥¢ëiºÙbë5const toast=document.querySelector('.toast');const field=document.querySelector('.particle-field');let timer;
+const messages={start:'æ—…ç¨‹å·²å¼€å¯ ÂëŸm¢G§²ÚîÆ­y×FVçCÒ~jÚ>YÊŽXŠî[ÈûÉ¢r¶RçF&vWBçfÇVS·Fö7Bæ6Æ74Æ—7BæFB‚w6†÷rr“¶6ÆV%F–ÖV÷WB‡F–ÖW"“·F–ÖW#×6WEF–ÖV÷WB‚‚“ÓçFö7Bæ6Æ74Æ—7Bç&VÖ÷fR‚w6†÷rr’Ã#—×Ò“° 
