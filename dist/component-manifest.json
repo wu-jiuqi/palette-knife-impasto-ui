@@ -1,0 +1,29 @@
+{
+  "theme": "月蚀画廊 / 刮刀厚涂油画",
+  "runtime": "h5-dom",
+  "version": "v7",
+  "style_anchor": {
+    "medium": "厚油彩、方向性宽刀面、断续刀锋、局部画布露底",
+    "palette": ["#101d22", "#f1e8d5", "#d64a36", "#e6b96b"],
+    "type_pairing": "DM Serif Display（展示标题）+ Manrope（正文、标签、数字）",
+    "text_rule": "动态文字由 DOM 叠加，文字区低细节、高对比，不烘焙到 PNG"
+  },
+  "components": [
+    {"id":"button","family":"操作","states":["default","hover","pressed","focus","disabled"],"asset":"impasto-button.png","state_strategy":"runtime-emphasis","text_zone":"居中，单行，14–16px"},
+    {"id":"tabs-pagination","family":"导航","states":["default","hover","active","focus"],"asset":"impasto-search.png + paint-splashes.png","state_strategy":"runtime-emphasis","text_zone":"短标签，基线对齐"},
+    {"id":"field-search","family":"输入","states":["empty","filled","focus","disabled"],"asset":"impasto-search.png","state_strategy":"runtime-emphasis","text_zone":"左侧标签/输入区分层"},
+    {"id":"field-error","family":"输入","states":["filled","error"],"asset":"impasto-toast.png","state_strategy":"runtime-emphasis","text_zone":"错误文案与字段同一阅读起点"},
+    {"id":"choices","family":"选择","states":["unchecked","checked","focus","disabled"],"asset":"impasto-button.png + impasto-toast.png","state_strategy":"native + runtime-emphasis","text_zone":"图标与文字共享基线"},
+    {"id":"slider-progress","family":"输入/数据展示","states":["min","value","max","disabled"],"asset":"impasto-search.png + impasto-button.png","state_strategy":"runtime-emphasis","text_zone":"数值置于轨道上方/中央"},
+    {"id":"badge-card","family":"信息展示","states":["info","success","warning","selected"],"asset":"impasto-toast.png + impasto-modal.png","state_strategy":"runtime-emphasis","text_zone":"标题/正文/元数据三层"},
+    {"id":"toast-tooltip","family":"反馈","states":["info","hover","live"],"asset":"impasto-button.png + impasto-toast.png","state_strategy":"runtime-emphasis","text_zone":"短句，最多两行"},
+    {"id":"list","family":"信息展示","states":["default","hover","selected","empty"],"asset":"impasto-search.png + impasto-button.png","state_strategy":"runtime-emphasis","text_zone":"标题、元数据与尾部操作对齐"},
+    {"id":"dialog","family":"反馈","states":["open","close","focus"],"asset":"impasto-modal.png","state_strategy":"native + runtime-emphasis","text_zone":"标题、正文、关闭按钮安全区"}
+  ],
+  "qa": {
+    "material_hover": "通过：所有演示 hover 保留原始油彩资产，使用透明高光/滤镜/轻微位移，没有纯色块替换",
+    "text_pairing": "通过：标题使用 DM Serif Display，正文/标签使用 Manrope，浅深材质分别采用墨色/纸色安全区",
+    "responsive": "已覆盖：桌面、窄屏、中间断点；移动端提供 pressed/selected/focus-visible 等价状态",
+    "reduced_motion": "已覆盖：prefers-reduced-motion 下停用粒子与过渡"
+  }
+}
