@@ -1,6 +1,37 @@
-Y��x-���jם��i��+��j[h��ܢ���}Ӣ֥��i��b��5<!doctype html>
+<!doctype html>
 <html lang="zh-CN">
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>月��}��G����ƭy��R�f�V�B"&�ֆ�FFV��'G'VR#���F�c��F�b6�73�'F�7B"&��S�'7FGW2"&��ƗfS�'�ƗFR#���F�c��������67&�B7&3�&����2#���67&�C���&�G�����F���
+<title>月蚀画廊 · Oil UI Vertical Slice</title>
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<main class="scene" aria-label="月蚀画廊主菜单">
+  <div class="grain"></div>
+  <div class="paint-wash wash-a"></div><div class="paint-wash wash-b"></div>
+  <header class="topbar"><span class="chapter">CHAPTER 01</span><span class="rule"></span><span class="caption">THE MOON REMEMBERS</span></header>
+  <section class="hero-copy">
+    <p class="eyebrow">A PALETTE-KNIFE ADVENTURE</p>
+    <h1>月蚀<br><em>画廊</em></h1>
+    <p class="dek">在颜料干涸之前，找回那幅被撕走的夜。</p>
+    <div class="menu-stack">
+      <button class="menu-btn primary" data-action="start"><span>开始旅程</span><b>↗</b></button>
+      <button class="menu-btn" data-action="gallery"><span>画廊档案</span><b>02</b></button>
+      <button class="menu-btn" data-action="settings"><span>设置</span><b>03</b></button>
+    </div>
+  </section>
+  <section class="component-lab" aria-label="常见交互组件展示">
+    <div class="lab-label">UI STUDIES / 04</div>
+    <label class="search-paint"><span class="magnify">⌕</span><input id="search" placeholder="寻找一段记忆…" /><kbd>/</kbd></label>
+    <div class="select-wrap"><button class="fold-select" id="dropBtn"><span>所有画作</span><b>⌄</b></button><div class="drop-menu" id="dropMenu"><button data-filter="所有画作">所有画作</button><button data-filter="未完成">未完成</button><button data-filter="已收藏">已收藏</button></div></div>
+    <button class="info-chip" id="infoBtn"><span>i</span> 画布提示</button>
+  </section>
+  <div class="modal-backdrop" id="modal"><div class="tip-card"><button class="close-tip" id="closeTip">×</button><span class="tip-stamp">NOTE 07</span><h2>颜料还未干</h2><p>悬停在画作上，寻找被刀锋刮开的月光。</p><div class="tip-line"></div><small>ESC 关闭提示</small></div></div>
+  <aside class="side-note"><span class="vertical">OIL / MEMORY / NIGHT</span><span class="seal">M<br>01</span></aside>
+  <footer class="footer"><span>© 2026 MOONLIT GALLERY</span><span class="hint">CLICK TO ENTER <i>●</i></span></footer>
+  <div class="particle-field" aria-hidden="true"></div><div class="toast" role="status" aria-live="polite"></div>
+</main>
+<script src="main.js"></script>
+</body>
+</html>
